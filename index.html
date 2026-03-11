@@ -3,38 +3,264 @@
 <head>
   <link rel="stylesheet" href="/static/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" />
-  <title>Name Generator</title>
+  <title>Soulsborne Name Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
       max-width: 700px;
       margin: auto;
+      background-color: #242320;
+      color: #e0d6c6;
     }
-    button {
+    input, button {
       width: 100%;
       margin-top: 10px;
       padding: 10px;
       font-size: 1em;
+      box-sizing: border-box;
+    }
+    input {
+      background-color: #3a3732;
+      border: 1px solid #6b5e4a;
+      color: #e0d6c6;
+    }
+    button {
+      background-color: #6b5e4a;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #8a7b63;
+    }
+    button:disabled {
+      background-color: #4a443a;
+      cursor: not-allowed;
     }
     #currentName {
       font-size: 1.5em;
       margin-top: 20px;
       font-weight: bold;
+      color: #c9b391;
+      word-break: break-word;
     }
     #history {
       margin-top: 20px;
       max-height: 300px;
       overflow-y: auto;
+      background-color: #2a2823;
+      padding: 10px;
+      border-radius: 4px;
     }
     .history-item {
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #4a443a;
       padding: 4px 0;
     }
     .nav {
       margin-top: 20px;
       font-size: 0.95em;
     }
+    .nav a {
+      margin-right: 15px;
+      color: #b89e7a;
+    }
+    #status {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #8fbc8f;
+    }
+    .error {
+      color: #c45a5a;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #b89e7a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Soulsborne Name Generator</h1>
+
+  <div class="nav">
+    <a href="multi_editor.html">Edit Name Parts</a>
+  </div>
+
+  <div id="status">⏳ Loading name parts...</div>
+
+  <div class="input-group">
+    <label for="firstName">Your first name:</label>
+    <input type="text" id="firstName" placeholder="e.g., John" />
+  </div>
+
+  <div class="input-group">
+    <label for="lastName">Your last name:</label>
+    <input type="text" id="lastName" placeholder="e.g., Smith" />
+  </div>
+
+  <button id="generateBtn" onclick="generateNameFromInput()" disabled>Generate Soulsborne Name</button>
+  <div id="currentName">Your Soulsborne name will appear here</div>
+
+  <h3>Last 25 Generated Names:</h3>
+  <div id="history"></div>
+
+  <script>
+    const fileMap = {
+      A: "parts_A.txt", // Titles
+      B: "parts_B.txt", // Name First Parts
+      X: "parts_X.txt", // Name Second Parts
+      Y: "parts_Y.txt", // Connectors
+      Z: "parts_Z.txt"  // Epithets/Places
+    };
+
+    const parts = { A: [], B: [], X: [], Y: [], Z: [] };
+    let history = [];
+    let lastGeneratedName = null;
+
+    async function fetchParts() {
+      let failed = false;
+
+      for (const key in fileMap) {
+        try {
+          const res = await fetch(fileMap[key]);
+          if (!res.ok) throw new Error(`${fileMap[key]} not found.`);
+          const text = await res.text();
+          const lines = text.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+          if (lines.length === 0) throw new Error(`${fileMap[key]} is empty.`);
+          parts[key] = lines;
+        } catch (e) {
+          failed = true;
+          console.error(e);
+          document.getElementById("status").innerHTML = `❌ Error loading <strong>${fileMap[key]}</strong>: ${e.message}`;
+          document.getElementById("status").classList.add("error");
+          break;
+        }
+      }
+
+      if (!failed) {
+        document.getElementById("status").textContent = "✅ Name parts loaded.";
+        document.getElementById("generateBtn").disabled = false;
+      }
+    }
+
+    function randomFrom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function getFirstSyllable(word) {
+      // Take first part until a vowel appears
+      const vowels = ['a', 'e', 'i', 'o', 'u'];
+      for (let i = 1; i < Math.min(4, word.length); i++) {
+        if (vowels.includes(word[i].toLowerCase())) {
+          return word.substring(0, i + 1);
+        }
+      }
+      return word.substring(0, Math.min(3, word.length));
+    }
+
+    function getLastSyllable(word) {
+      // Take last part starting from a vowel
+      const vowels = ['a', 'e', 'i', 'o', 'u'];
+      for (let i = word.length - 1; i >= Math.max(0, word.length - 4); i--) {
+        if (vowels.includes(word[i].toLowerCase())) {
+          return word.substring(i);
+        }
+      }
+      return word.substring(Math.max(0, word.length - 3));
+    }
+
+    function generateNameFromInput() {
+      if (Object.values(parts).some(list => list.length === 0)) {
+        alert("One or more name part lists are empty.");
+        return;
+      }
+
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      
+      if (!firstName || !lastName) {
+        alert("Please enter both first and last name.");
+        return;
+      }
+
+      // Add previous name to history if it exists
+      if (lastGeneratedName) {
+        history.unshift(lastGeneratedName);
+        if (history.length > 25) history.pop();
+      }
+
+      // Generate Soulsborne name from user input
+      const firstSyllable = getFirstSyllable(firstName);
+      const lastSyllable = getLastSyllable(lastName);
+      const soulsName = firstSyllable + lastSyllable;
+
+      // Generate seed from combined letters (a=1, b=2, etc.)
+      const combined = (firstName + lastName).toLowerCase();
+      let seed = 0;
+      for (let i = 0; i < combined.length; i++) {
+        const char = combined[i];
+        if (char >= 'a' && char <= 'z') {
+          seed += char.charCodeAt(0) - 96; // a=1, b=2, etc.
+        }
+      }
+
+      // Select title, connector, epithet based on seed
+      const title = parts.A[seed % parts.A.length];
+      const connector = parts.Y[Math.floor(seed / parts.A.length) % parts.Y.length];
+      const epithet = parts.Z[(seed + parts.A.length) % parts.Z.length];
+
+      // Final name
+      lastGeneratedName = `${title} ${soulsName} ${connector} ${epithet}`;
+
+      document.getElementById("currentName").textContent = `Your Soulsborne name: ${lastGeneratedName}`;
+      updateHistory();
+    }
+
+    // Keep the old random generator as an alternative
+    function generateRandomName() {
+      if (Object.values(parts).some(list => list.length === 0)) {
+        alert("One or more name part lists are empty.");
+        return;
+      }
+
+      if (lastGeneratedName) {
+        history.unshift(lastGeneratedName);
+        if (history.length > 25) history.pop();
+      }
+
+      const title = randomFrom(parts.A);
+      const firstPart = randomFrom(parts.B);
+      const secondPart = randomFrom(parts.X);
+      const connector = randomFrom(parts.Y);
+      const epithet = randomFrom(parts.Z);
+      
+      lastGeneratedName = `${title} ${firstPart}${secondPart} ${connector} ${epithet}`;
+
+      document.getElementById("currentName").textContent = `Random name: ${lastGeneratedName}`;
+      updateHistory();
+    }
+
+    function updateHistory() {
+      const historyDiv = document.getElementById("history");
+      historyDiv.innerHTML = '';
+      history.forEach(name => {
+        const div = document.createElement("div");
+        div.className = "history-item";
+        div.textContent = name;
+        historyDiv.appendChild(div);
+      });
+    }
+
+    window.onload = fetchParts;
+  </script>
+
+</body>
+</html>    }
     .nav a {
       margin-right: 15px;
     }
