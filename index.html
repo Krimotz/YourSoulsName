@@ -86,6 +86,11 @@
 <body>
 
   <h1>Soulsborne Name Generator</h1>
+  <div class="nav">
+    <a href="multi_editor.html">Edit Name Parts</a>
+  </div>
+
+  <div id="status">⏳ Loading name parts...</div>
 
   <div class="input-group">
     <label for="firstName">Your first name:</label>
@@ -94,7 +99,7 @@
 
   <div class="input-group">
     <label for="lastName">Your last name:</label>
-    <input type="text" id="lastName" placeholder="e.g.,Jover" />
+    <input type="text" id="lastName" placeholder="e.g.,Motzfeldt" />
   </div>
 
   <button id="generateBtn" onclick="generateNameFromInput()" disabled>Generate Soulsborne Name</button>
