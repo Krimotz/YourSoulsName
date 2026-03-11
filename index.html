@@ -196,28 +196,33 @@
         if (history.length > 25) history.pop();
       }
 
-      // Generate seed from combined letters (a=1, b=2, etc.)
-      const combined = (firstName + lastName).toLowerCase();
-      let seed = 0;
-      for (let i = 0; i < combined.length; i++) {
-        const char = combined[i];
-        if (char >= 'a' && char <= 'z') {
-          seed += char.charCodeAt(0) - 96; // a=1, b=2, etc.
-        }
-      }
+      // Generate seed using DJB2 hash
+const combined = (firstName + lastName).toLowerCase();
+let seed = 5381; // DJB2 starting point
 
-      // Get syllables from input names
-      const firstSyllable = getFirstSyllable(firstName);
-      const lastSyllable = getLastSyllable(lastName);
-      
-      // Select middle part from list B based on seed
-      const middleIndex = seed % parts.B.length;
-      const middlePart = parts.B[middleIndex];
+for (let i = 0; i < combined.length; i++) {
+  const char = combined[i];
+  if (char >= 'a' && char <= 'z') {
+    const charValue = char.charCodeAt(0) - 96;
+    seed = ((seed << 5) - seed) + charValue; // seed * 33 + charValue
+  }
+}
 
-      // Select title, connector, epithet based on seed
-      const title = parts.A[seed % parts.A.length];
-      const connector = parts.Y[Math.floor(seed / parts.A.length) % parts.Y.length];
-      const epithet = parts.Z[(seed + parts.A.length) % parts.Z.length];
+// Ensure positive
+seed = Math.abs(seed);
+
+// Get syllables from input names
+const firstSyllable = getFirstSyllable(firstName);
+const lastSyllable = getLastSyllable(lastName);
+
+// Select middle part from list B based on seed
+const middleIndex = seed % parts.B.length;
+const middlePart = parts.B[middleIndex];
+
+// Select title, connector, epithet with simple offsets
+const title = parts.A[seed % parts.A.length];
+const connector = parts.Y[(seed + 12345) % parts.Y.length];
+const epithet = parts.Z[(seed + 67890) % parts.Z.length];
 
       // Final name: [title] [firstSyllable][middlePart][lastSyllable] [connector] [epithet]
       const soulsName = firstSyllable + middlePart + lastSyllable;
