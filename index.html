@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" />
+  <title>Name Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1em;
+    }
+    #currentName {
+      font-size: 1.5em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    #history {
+      margin-top: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .history-item {
+      border-bottom: 1px solid #ddd;
+      padding: 4px 0;
+    }
+    .nav {
+      margin-top: 20px;
+      font-size: 0.95em;
+    }
+    .nav a {
+      margin-right: 15px;
+    }
+    #status {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Name Generator</h1>
+
+  <div class="nav">
+    <a href="multi_editor.html">Edit Name Parts</a>
+  </div>
+
+  <div id="status">⏳ Loading name parts...</div>
+  <button id="generateBtn" onclick="generateName()" disabled>Generate Name</button>
+  <div id="currentName">Current Name: (none)</div>
+
+  <h3>Last 25 Generated Names:</h3>
+  <div id="history"></div>
+
+  <script>
+    const fileMap = {
+      A: "parts_A.txt",
+      B: "parts_B.txt",
+      X: "parts_X.txt",
+      Y: "parts_Y.txt",
+      Z: "parts_Z.txt"
+    };
+
+    const parts = { A: [], B: [], X: [], Y: [], Z: [] };
+    let history = [];
+    let lastName = null;
+
+    async function fetchParts() {
+      let failed = false;
+
+      for (const key in fileMap) {
+        try {
+          const res = await fetch(fileMap[key]);
+          if (!res.ok) throw new Error(`${fileMap[key]} not found.`);
+          const text = await res.text();
+          const lines = text.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+          if (lines.length === 0) throw new Error(`${fileMap[key]} is empty.`);
+          parts[key] = lines;
+        } catch (e) {
+          failed = true;
+          console.error(e);
+          document.getElementById("status").innerHTML = `❌ Error loading <strong>${fileMap[key]}</strong>: ${e.message}`;
+          document.getElementById("status").classList.add("error");
+          break;
+        }
+      }
+
+      if (!failed) {
+        document.getElementById("status").textContent = "✅ Name parts loaded.";
+        document.getElementById("generateBtn").disabled = false;
+      }
+    }
+
+    function randomFrom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generateName() {
+      if (Object.values(parts).some(list => list.length === 0)) {
+        alert("One or more name part lists are empty.");
+        return;
+      }
+
+      if (lastName) {
+        history.unshift(lastName);
+        if (history.length > 25) history.pop();
+      }
+
+      const first = randomFrom(parts.A) + randomFrom(parts.B);
+      const last = randomFrom(parts.X) + randomFrom(parts.Y) + randomFrom(parts.Z);
+      lastName = `${first} ${last}`;
+
+      document.getElementById("currentName").textContent = `Current Name: ${lastName}`;
+      updateHistory();
+    }
+
+    function updateHistory() {
+      const historyDiv = document.getElementById("history");
+      historyDiv.innerHTML = '';
+      history.forEach(name => {
+        const div = document.createElement("div");
+        div.className = "history-item";
+        div.textContent = name;
+        historyDiv.appendChild(div);
+      });
+    }
+
+    window.onload = fetchParts;
+  </script>
+
+</body>
+</html>

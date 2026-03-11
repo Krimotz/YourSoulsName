@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8" />
+  <title>Quick Add to Name Parts</title>
+  <style>
+    body { font-family: Arial; padding: 20px; max-width: 800px; margin: auto; }
+    h1 { margin-bottom: 10px; }
+
+.input-row {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+label {
+  display: inline-block;
+  width: 100px;           /* ✅ Same width for every label */
+  font-weight: bold;
+  white-space: nowrap;    /* Prevent label from wrapping */
+  margin-right: 75px;     /* Gap between label and input */
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 6px;
+  font-size: 1em;
+  min-width: 0;
+  max-width: 20%;
+  resize: none;
+  min-width: 0;            /* Allow shrinking if needed */
+
+}
+  </style>
+</head>
+<body>
+
+  <h1>Quick Add to Name Parts</h1>
+  <p><a href="index.html">Back to Name Generator</a></p>
+
+  <div class="input-row"><label for="A">First Name Start:</label><input type="text" id="A" placeholder="Type and press Enter" /></div>
+  <div class="input-row"><label for="B">First Name End:</label><input type="text" id="B" placeholder="Type and press Enter" /></div>
+
+  <div class="input-row"><label for="X">Last Name Start:</label><input type="text" id="X" placeholder="Type and press Enter" /></div>
+  <div class="input-row"><label for="Y">Last Name Middle:</label><input type="text" id="Y" placeholder="Type and press Enter" /></div>
+  <div class="input-row"><label for="Z">Last Name End:</label><input type="text" id="Z" placeholder="Type and press Enter" /></div>
+
+<button onclick="clearAll()">Clear All Name Lists</button>
+
+  <script>
+    const fields = ["A", "B", "X", "Y", "Z"];
+
+    fields.forEach(key => {
+      const input = document.getElementById(key);
+      input.addEventListener("keydown", async (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const value = input.value.trim();
+          if (!value) return;
+
+          const data = { A: "", B: "", X: "", Y: "", Z: "" };
+          data[key] = value;
+
+          try {
+            const res = await fetch("/append", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            if (result.status === "success") {
+              input.value = "";
+            } else {
+              alert("Failed to append.");
+            }
+          } catch (err) {
+            alert("Error: " + err);
+          }
+        }
+      });
+    });
+async function clearAll() {
+    if (!confirm("Are you sure you want to clear all name part lists? This cannot be undone.")) return;
+
+    try {
+      const res = await fetch("/clear", { method: "POST" });
+      const result = await res.json();
+      if (result.status === "success") {
+        alert("All lists cleared.");
+        location.reload(); // optional: reload to clear the form views
+      } else {
+        alert("Failed to clear lists.");
+      }
+    } catch (err) {
+      alert("Error: " + err);
+    }
+  }
+  </script>
+
+</body>
+</html>
