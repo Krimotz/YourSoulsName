@@ -9,16 +9,16 @@ Martyr
 Vicar
 Cleric
 Dragonslayer
-Demon
-Burnt
-Fume
+The Demon
+Burnt Omen
+Fume Knight 
 Dark
 Lord
 King
 Queen
 Lady
-Bed
-Chaos
+Bedridden
+Chaos Instigator 
 Orphan
 Bloodstarved
 Crossbreed
@@ -34,30 +34,30 @@ Velvet
 Divine
 Nameless
 Ancient
-Ancestor
+Ancestor of
 Shadow
 Forgotten
 Iron
 Old
 Golden
 Silver
-Flame
+Flame-given 
 Crystal
-Moon
-Sun
-Storm
+Moonborne
+Sun-touched
+Stormy
 Fallen
 Profaned
 Sentry
-Tomb
-Grave
+Tomb Dweller
+Grave Guard
 Undead
 Living
 Holy
 Unholy
 Merciless
 Watchdog
-Beast
+Beast Clergyman
 Celestial
 Sacred
 Cursed
