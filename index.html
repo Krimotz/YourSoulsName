@@ -87,12 +87,6 @@
 
   <h1>Soulsborne Name Generator</h1>
 
-  <div class="nav">
-    <a href="multi_editor.html">Edit Name Parts</a>
-  </div>
-
-  <div id="status">⏳ Loading name parts...</div>
-
   <div class="input-group">
     <label for="firstName">Your first name:</label>
     <input type="text" id="firstName" placeholder="e.g., John" />
@@ -217,7 +211,7 @@
       // Final name
       lastGeneratedName = `${title} ${soulsName} ${connector} ${epithet}`;
 
-      document.getElementById("currentName").textContent = `Your Soulsborne name: ${lastGeneratedName}`;
+      document.getElementById("currentName").textContent = `Your Soulsborne name: <br> ${lastGeneratedName}`;
       updateHistory();
     }
 
