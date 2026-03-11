@@ -16,12 +16,6 @@ Lordran
 Drangleic
 Yharnam
 Boletaria
-The Nexus
-The Hunters Dream
-Firelink Shrine
-The Kiln
-The Abyss
-The Deep
 Fishing Hamlet
 Byrgenwerth
 Cainhurst
@@ -32,14 +26,6 @@ Throne of Want
 First Flame
 Dark Soul
 Old Blood
-The Nightmare
-The Dream
-The Hunt
-The Sin
-The Curse
-The Darksign
-The Brand
-The Mark
 Ariandel
 Lothric
 Cathedral of the Deep
@@ -58,12 +44,148 @@ Huntsmans Copse
 Undead Purgatory
 Drangleic Castle
 Shrine of Amana
-Dragon Aerie
-Apostate Head
-Hunters Nightmare
-Research Hall
-Astral Clocktower
-Fountainhead Palace
 Ashina Castle
-Hirata Estate
-Sunken Valleyhall  
+Hirata Estate 
+The Dragon Aerie
+The Apostate Head
+The Hunters Nightmare
+The Research Hall
+The Astral Clocktower
+The Fountainhead Palace
+The Sunken Valleyhall  
+the Abysswalker
+the Dragonslayer
+the Scaleless
+the Executioner
+the Rock
+the Flame God
+the Lord of Sunlight
+the Dark Sun
+the Knight of Thorns
+the Corrupted
+the Accursed
+the Holy Blade
+the First of the Dead
+the Necromancer
+the Legate
+the Scholar
+the Golden
+the All-Knowing
+the Grafted
+the Loathsome
+the Dung Eater
+the Fell Omen
+the Omen King
+the Lord of Blasphemy
+the Black Blade
+the Rotting
+the One-Armed
+the Starscourge
+the Warrior
+the Stormlord
+the Stormhawk King
+the Dragonlord
+the Dragonkin
+the Dragonheart
+the Sword Maiden
+the Sword Saint
+the Gloom-Eyed Queen
+the Fire Giant
+the Fallingstar Beast
+the Naturalborn of the Void
+the Regal Ancestor Spirit
+the Valiant Gargoyle
+the Erdtree Burial Watchdog
+the Bell Bearing Hunter
+the Night's Cavalry
+the Red Wolf of Radagon
+the Albinauric
+the Omenkiller
+the Crystallian
+the Onyx Lord
+the Crucible Knight
+the Godskin Noble
+the Godskin Apostle
+the Cleanrot Knight
+the Grave Warden
+the Putrid
+the Magma Wyrm
+the God-Devouring Serpent
+the Elden Beast
+the One Who Hungers
+the First Hunter
+the Paleblood Hunter
+the Lady of the Labyrinth
+the Tower Knight
+the Penetrator
+the Old King
+the False King
+the Storm King
+the Flamelurker
+the Old Monk
+the Adjudicator
+the Old Hero
+the Astraea's Knight
+the King of the Storm
+the Nameless King
+the Soul of Cinder
+the Bed of Chaos
+the Gravelord
+the Witch of Izalith
+the Lost Sinner
+the Looking Glass Knight
+the Royal Aegis
+the Throne Watcher
+the Throne Defender
+the Fume Knight
+the Ivory King
+the Burnt Ivory King
+the Sinner
+the Scholar of the First Sin
+the Forlorn
+the Rotted Greatwood
+the Crystal Sage
+the Deacons of the Deep
+the Old Demon King
+the Dancer of the Boreal Valley
+the Dragonslayer Armour
+the Demon Prince
+the Demon in Pain
+the Demon from Below
+the Sister Friede
+the Father Ariandel
+the Demon of Hatred
+the Divine Dragon
+the True Corrupted Monk
+the Headless
+the Guardian Ape
+the Chained Ogre
+the Gyoubu Oniwa
+the Blazing Bull
+the Lady Butterfly
+the Lone Shadow
+the Snake Eyes
+the Drunkard
+the Seven Ashina Spears
+the Armored Warrior
+the Vilehand
+the Okami Leader
+the Shichimen Warrior
+the Corrupted Monk
+the Demon of Hatred
+the Great Shinobi
+the Sword Saint
+The Nightmare
+The Dream
+The Hunt
+The Sin
+The Curse
+The Darksign
+The Brand
+The Mark
+The Nexus
+The Hunters Dream
+The Firelink Shrine
+The Kiln
+The Abyss
+The Deep 
