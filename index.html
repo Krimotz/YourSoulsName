@@ -114,8 +114,8 @@
   <script>
     const fileMap = {
       A: "parts_A.txt", // Titles
-      B: "parts_B.txt", // Name First Parts
-      X: "parts_X.txt", // Name Second Parts
+      B: "parts_B.txt", // Middle Name Parts (seed-based)
+      X: "parts_X.txt", // (Unused in this mode)
       Y: "parts_Y.txt", // Connectors
       Z: "parts_Z.txt"  // Epithets/Places
     };
@@ -196,11 +196,6 @@
         if (history.length > 25) history.pop();
       }
 
-      // Generate Soulsborne name from user input
-      const firstSyllable = getFirstSyllable(firstName);
-      const lastSyllable = getLastSyllable(lastName);
-      const soulsName = firstSyllable + lastSyllable;
-
       // Generate seed from combined letters (a=1, b=2, etc.)
       const combined = (firstName + lastName).toLowerCase();
       let seed = 0;
@@ -211,12 +206,21 @@
         }
       }
 
+      // Get syllables from input names
+      const firstSyllable = getFirstSyllable(firstName);
+      const lastSyllable = getLastSyllable(lastName);
+      
+      // Select middle part from list B based on seed
+      const middleIndex = seed % parts.B.length;
+      const middlePart = parts.B[middleIndex];
+
       // Select title, connector, epithet based on seed
       const title = parts.A[seed % parts.A.length];
       const connector = parts.Y[Math.floor(seed / parts.A.length) % parts.Y.length];
       const epithet = parts.Z[(seed + parts.A.length) % parts.Z.length];
 
-      // Final name
+      // Final name: [title] [firstSyllable][middlePart][lastSyllable] [connector] [epithet]
+      const soulsName = firstSyllable + middlePart + lastSyllable;
       lastGeneratedName = `${title} ${soulsName} ${connector} ${epithet}`;
 
       document.getElementById("currentName").textContent = `Your Soulsborne name: ${lastGeneratedName}`;
