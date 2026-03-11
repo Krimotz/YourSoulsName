@@ -198,7 +198,15 @@
 
       // Generate seed using DJB2 hash
 const combined = (firstName + lastName).toLowerCase();
-let seed = 420; // DJB2 starting point
+// Get today's date as YYYYMMDD (e.g., 20260311)
+const today = new Date();
+const dateNum = parseInt(
+  today.getFullYear().toString() +
+  (today.getMonth() + 1).toString().padStart(2, '0') +
+  today.getDate().toString().padStart(2, '0')
+);
+
+let seed = dateNum; // 20260311 for today
 
 for (let i = 0; i < combined.length; i++) {
   const char = combined[i];
