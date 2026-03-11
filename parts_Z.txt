@@ -1,39 +1,69 @@
-wyn  
-mere  
-fold  
-den  
-croft  
-wick  
-glen  
-holt  
-mar  
-fell  
-bar  
-grave  
-watch  
-stead  
-moor  
-rest  
-gate  
-lyn  
-reach  
-wynne  
-thorn  
-shade  
-brook  
-helm  
-tide  
-spire  
-wold  
-burn  
-dell  
-ridge  
-run  
-fast  
-ford  
-shade  
-wynd  
-hall  
-bay  
-rock  
-cliff  
+Lost Ashes
+Profaned Capital
+Crumbling Farum Azula
+Lake of Rot
+Miquellas Haligtree
+Elphael
+Leyndell
+Stormveil
+Raya Lucaria
+Caria Manor
+Nokron
+Nokstella
+Mohgwyn Palace
+The Lands Between
+Lordran
+Drangleic
+Yharnam
+Boletaria
+The Nexus
+The Hunters Dream
+Firelink Shrine
+The Kiln
+The Abyss
+The Deep
+Fishing Hamlet
+Byrgenwerth
+Cainhurst
+Anor Londo
+Irithyll
+Undead Crypt
+Throne of Want
+First Flame
+Dark Soul
+Old Blood
+The Nightmare
+The Dream
+The Hunt
+The Sin
+The Curse
+The Darksign
+The Brand
+The Mark
+Ariandel
+Lothric
+Cathedral of the Deep
+Farron Keep
+Ringed City
+Frigid Outskirts
+Shulva
+Brume Tower
+Eleum Loyce
+Heide
+No Mans Wharf
+Things Betwixt
+Majula
+Forest of Fallen Giants
+Huntsmans Copse
+Undead Purgatory
+Drangleic Castle
+Shrine of Amana
+Dragon Aerie
+Apostate Head
+Hunters Nightmare
+Research Hall
+Astral Clocktower
+Fountainhead Palace
+Ashina Castle
+Hirata Estate
+Sunken Valleyhall  
