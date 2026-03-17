@@ -167,7 +167,7 @@
 
     function getLastSyllable(word) {
       // Take last part starting from a vowel
-      const vowels = ['a', 'e', 'i', 'o', 'u'];
+      const vowels = ['a', 'e', 'i', 'o', 'u', 'ø', 'æ', 'å'];
       for (let i = word.length - 1; i >= Math.max(0, word.length - 4); i--) {
         if (vowels.includes(word[i].toLowerCase())) {
           return word.substring(i);
