@@ -61,3 +61,10 @@ Beast Clergyman
 Celestial
 Sacred
 Cursed
+Vacuous
+Clockwork
+Venerated
+Hollowed
+Hallowed
+Greater
+
